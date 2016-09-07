@@ -11,13 +11,11 @@ namespace App\Transformer;
 
 abstract class Transformer
 {
-    public function transformCollection($items)
+    public function transformCollection($item)
     {
-        return array_map([$this, 'transform'], $items);
+        return array_map([$this, 'transform'], $item);
     }
 
     public abstract function transform($item);
-
-
 
 }

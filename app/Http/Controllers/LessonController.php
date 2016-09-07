@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 
-class LessonController extends Controller
+class LessonController extends ApiController
 {
     //
 
@@ -29,27 +29,32 @@ class LessonController extends Controller
 
     public function index()
     {
-        //没有提示信息
-        //直接返回数据结构
-        //没有错误信息
 
         $lessons = Lesson::all();
-        return \Response::json([
-            'status' => 'success',
-            'status_code' => 200,
-            'data' => $this->lessonTransformer->transformCollection($lessons->toArray())
-        ]); //bad
+        return $this->response(
+            [
+                'status' => 'success',
+                'status_code' => $this->getStatusCode(),
+                'data' => $this->lessonTransformer->transformCollection($lessons->toArray())
+            ]
+        );
     }
 
     public function show($id)
     {
-        $lesson = Lesson::findOrFail($id);
+        $lesson = Lesson::find($id);
 
-        return \Response::json([
-            'status' => 'success',
-            'status_code' => 200,
-            'data' => $this->lessonTransformer->transform($lesson)
-        ]);
+        if (! $lesson)
+        {
+            return $this->setStatusCode(404)->responseNotFound();
+        }
+
+        return $this->response(
+            [
+                'status' => 'success',
+                'data' => $this->lessonTransformer->transform($lesson)
+            ]
+        );
     }
 
 
