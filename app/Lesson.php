@@ -10,6 +10,8 @@ class Lesson extends Model
 
 //    protected $hidden = ['title'];
 
+    protected $fillable = ['title', 'body'];
+
 
 
 }

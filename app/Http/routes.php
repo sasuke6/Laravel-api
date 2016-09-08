@@ -22,3 +22,7 @@ Route::group(['prefix' => 'api/v1'], function () {
 
 
 
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
