@@ -11,18 +11,26 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+//
+//
+//Route::group(['prefix' => 'api/v1'], function () {
+//    Route::resource('lesson', 'LessonController');
+//});
+//
+//
+//
+//
+//Route::auth();
+//
+//Route::get('/home', 'HomeController@index');
+
+$api = app('Dingo\Api\Routing\Router');
+
+$api->version('v1', function ($api) {
+    $api->group(['namespace' => 'App\Api\Controllers'], function ($api) {
+        $api->get('lesson', 'LessonController@index');
+    });
 });
-
-
-Route::group(['prefix' => 'api/v1'], function () {
-    Route::resource('lesson', 'LessonController');
-});
-
-
-
-
-Route::auth();
-
-Route::get('/home', 'HomeController@index');
