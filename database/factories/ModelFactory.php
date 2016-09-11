@@ -29,4 +29,10 @@ $factory->define(App\Lesson::class, function (Faker\Generator $faker) {
     ];
 });
 
-
+$factory->define(App\Client::class, function (Faker\Generator $faker) {
+    return [
+        'id' => str_random(10),
+        'secret' => str_random(10),
+        'name' => $faker->words()
+    ];
+});
